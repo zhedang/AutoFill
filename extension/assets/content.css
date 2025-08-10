@@ -1,0 +1,87 @@
+/* AutoFill Extension Content Styles */
+
+.autofill-drop-zone {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 200px;
+  height: 120px;
+  background: linear-gradient(135deg, #4F46E5, #7C3AED);
+  border: 2px dashed #ffffff;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 10000;
+  box-shadow: 0 8px 32px rgba(79, 70, 229, 0.3);
+  transition: all 0.3s ease;
+}
+
+.autofill-drop-zone:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(79, 70, 229, 0.4);
+}
+
+.autofill-drop-zone.drag-over {
+  background: linear-gradient(135deg, #7C3AED, #EC4899);
+  transform: scale(1.05);
+}
+
+.autofill-drop-zone .icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.autofill-drop-zone .text {
+  font-weight: 500;
+}
+
+.autofill-drop-zone .subtext {
+  font-size: 12px;
+  opacity: 0.8;
+  margin-top: 4px;
+}
+
+.autofill-success {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #10B981;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
+  z-index: 10001;
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.autofill-field-highlight {
+  background-color: rgba(79, 70, 229, 0.1) !important;
+  border: 2px solid #4F46E5 !important;
+  transition: all 0.2s ease;
+}
+
+.autofill-field-filled {
+  background-color: rgba(16, 185, 129, 0.1) !important;
+  border: 2px solid #10B981 !important;
+}

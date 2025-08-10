@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoFill Extension</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <div class="header">
+      <div class="logo">
+        <span class="icon">📄</span>
+        <h1>AutoFill</h1>
+      </div>
+      <div class="status-toggle">
+        <label class="switch">
+          <input type="checkbox" id="enableToggle">
+          <span class="slider"></span>
+        </label>
+        <span class="status-text">Enabled</span>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="section">
+        <h3>Quick Actions</h3>
+        <button id="detectForms" class="btn btn-primary">
+          🔍 Detect Forms
+        </button>
+        <button id="clearFields" class="btn btn-secondary">
+          🗑️ Clear Fields
+        </button>
+      </div>
+
+      <div class="section">
+        <h3>Settings</h3>
+        <div class="setting-item">
+          <label>
+            <input type="checkbox" id="autoDetect">
+            Auto-detect forms
+          </label>
+        </div>
+        <div class="setting-item">
+          <label>
+            <input type="checkbox" id="showDropZone">
+            Always show drop zone
+          </label>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Supported Files</h3>
+        <div class="file-types">
+          <span class="file-type">📄 PDF</span>
+          <span class="file-type">🖼️ Images</span>
+          <span class="file-type">📝 Documents</span>
+          <span class="file-type">📄 Text</span>
+          <span class="file-type">📝 Markdown</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Statistics</h3>
+        <div class="stats">
+          <div class="stat-item">
+            <span class="stat-label">Forms Detected:</span>
+            <span class="stat-value" id="formsCount">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Fields Filled:</span>
+            <span class="stat-value" id="fieldsFilled">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <button id="openSettings" class="btn btn-text">Settings</button>
+      <button id="help" class="btn btn-text">Help</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

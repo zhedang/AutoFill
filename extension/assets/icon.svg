@@ -1,0 +1,19 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="64" cy="64" r="60" fill="#4F46E5" stroke="#3730A3" stroke-width="4"/>
+  
+  <!-- Document icon -->
+  <rect x="32" y="24" width="48" height="64" rx="4" fill="white" stroke="#1F2937" stroke-width="2"/>
+  <rect x="36" y="32" width="40" height="2" fill="#6B7280"/>
+  <rect x="36" y="38" width="32" height="2" fill="#6B7280"/>
+  <rect x="36" y="44" width="36" height="2" fill="#6B7280"/>
+  <rect x="36" y="50" width="28" height="2" fill="#6B7280"/>
+  
+  <!-- Auto-fill arrow -->
+  <path d="M 80 40 L 96 56 L 80 72" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 96 56 L 72 56" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Form fields representation -->
+  <rect x="88" y="80" width="24" height="16" rx="2" fill="#10B981" stroke="white" stroke-width="1"/>
+  <rect x="88" y="100" width="24" height="16" rx="2" fill="#10B981" stroke="white" stroke-width="1"/>
+</svg>
