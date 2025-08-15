@@ -86,42 +86,97 @@ class AutoFillExtension {
     let type = 'unknown';
     let label = '';
     
-    // Try to find associated label
+    // Strategy 1: Try to find associated label by 'for' attribute
     if (field.id) {
       const labelElement = document.querySelector(`label[for="${field.id}"]`);
       if (labelElement) {
         label = labelElement.textContent.trim();
+        console.log(`Found label by 'for' attribute: "${label}"`);
       }
     }
     
-    // If no label found, look for nearby text
+    // Strategy 2: Look for label within the same parent container
     if (!label) {
       const parent = field.parentElement;
-      const textNodes = Array.from(parent.childNodes)
-        .filter(node => node.nodeType === Node.TEXT_NODE)
-        .map(node => node.textContent.trim())
-        .filter(text => text.length > 0);
-      
-      if (textNodes.length > 0) {
-        label = textNodes[0];
+      if (parent) {
+        // Look for label element in the same container
+        const labelInParent = parent.querySelector('label');
+        if (labelInParent) {
+          label = labelInParent.textContent.trim();
+          console.log(`Found label in parent container: "${label}"`);
+        }
+        
+        // Look for text nodes before the input
+        if (!label) {
+          const textNodes = Array.from(parent.childNodes)
+            .filter(node => node.nodeType === Node.TEXT_NODE)
+            .map(node => node.textContent.trim())
+            .filter(text => text.length > 0);
+          
+          if (textNodes.length > 0) {
+            label = textNodes[0];
+            console.log(`Found label from text nodes: "${label}"`);
+          }
+        }
       }
+    }
+    
+    // Strategy 3: Use name attribute as label (most reliable)
+    if (!label && field.name) {
+      label = field.name;
+      console.log(`Using name attribute as label: "${label}"`);
+    }
+    
+    // Strategy 4: Use id attribute as label
+    if (!label && field.id) {
+      label = field.id;
+      console.log(`Using id attribute as label: "${label}"`);
+    }
+    
+    // Strategy 5: Use placeholder as label
+    if (!label && field.placeholder) {
+      label = field.placeholder;
+      console.log(`Using placeholder as label: "${label}"`);
+    }
+    
+    // Strategy 6: Generate a descriptive label based on field type and context
+    if (!label) {
+      if (field.type === 'email') {
+        label = 'email';
+      } else if (field.type === 'tel') {
+        label = 'phone';
+      } else if (field.type === 'date') {
+        label = 'date';
+      } else if (field.type === 'number') {
+        label = 'number';
+      } else {
+        label = `field_${field.type || 'text'}`;
+      }
+      console.log(`Generated descriptive label: "${label}"`);
     }
     
     // Determine field type based on input type and label
     if (field.type === 'email' || label.toLowerCase().includes('email')) {
       type = 'email';
-    } else if (field.type === 'tel' || label.toLowerCase().includes('phone')) {
+    } else if (field.type === 'tel' || label.toLowerCase().includes('phone') || label.toLowerCase().includes('tel')) {
       type = 'phone';
-    } else if (field.type === 'date' || label.toLowerCase().includes('date')) {
+    } else if (field.type === 'date' || label.toLowerCase().includes('date') || label.toLowerCase().includes('birth')) {
       type = 'date';
-    } else if (field.type === 'number' || label.toLowerCase().includes('amount') || label.toLowerCase().includes('price')) {
+    } else if (field.type === 'number' || label.toLowerCase().includes('amount') || label.toLowerCase().includes('price') || label.toLowerCase().includes('loss')) {
       type = 'number';
     } else if (label.toLowerCase().includes('name')) {
       type = 'name';
     } else if (label.toLowerCase().includes('address')) {
       type = 'address';
+    } else if (label.toLowerCase().includes('policy')) {
+      type = 'policy';
+    } else if (label.toLowerCase().includes('claim')) {
+      type = 'claim';
+    } else if (label.toLowerCase().includes('description')) {
+      type = 'description';
     }
     
+    console.log(`Field analysis result: type="${type}", label="${label}"`);
     return { type, label };
   }
 
@@ -418,7 +473,7 @@ class AutoFillExtension {
       subtree: true
     });
   }
-
+  
   // Helper method to read file as text
   readFileAsText(file) {
     return new Promise((resolve, reject) => {
