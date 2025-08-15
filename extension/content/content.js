@@ -238,11 +238,33 @@ class AutoFillExtension {
 
   async processFiles(files) {
     console.log('Processing files with Python server:', files);
+    console.log('Available form fields:', this.formFields);
 
     for (const file of files) {
       try {
         const formData = new FormData();
         formData.append('file', file);
+        
+        // 🔧 修复：发送检测到的表单字段信息
+        const formFieldsInfo = this.formFields.map(field => {
+          const fieldType = field.dataset.autofillType;
+          const fieldLabel = field.dataset.autofillLabel;
+          const placeholder = field.placeholder || '';
+          const name = field.name || '';
+          const id = field.id || '';
+          
+          return {
+            type: fieldType,
+            label: fieldLabel,
+            placeholder: placeholder,
+            name: name,
+            id: id,
+            inputType: field.type
+          };
+        });
+        
+        formData.append('formFields', JSON.stringify(formFieldsInfo));
+        console.log('✅ Sending form fields to server:', formFieldsInfo);
 
         const response = await fetch('http://127.0.0.1:5000/process', {
           method: 'POST',
